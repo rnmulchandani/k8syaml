@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-deployment-cm
+  namespace: kubernetes-tutorial
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-label1
+  template:
+    metadata:
+      labels:
+        app: my-label1
+    spec:
+      containers: 
+      - name: grafana-6-cm
+        image: grafana/grafana:6.5.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: GF_SECURITY_ADMIN_USER
+          valueFrom:
+            configMapKeyRef:
+              name: grafana-cm
+              key: username
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: grafana-cm
+              key: password
+
+
+
