@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: grafana-deployment
+    namespace: kubernetes-tutorial
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-label
+  template:
+    metadata:
+      labels:
+        app: my-label
+    spec:
+      containers: 
+      - name: grafana-6
+        image: grafana/grafana:6.5.0
+        ports:
+        - containerPort: 3000
+        
